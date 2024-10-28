@@ -5,14 +5,12 @@ import java.math.BigDecimal;
 import static java.awt.AWTEventMulticaster.add;
 
 public class BankAccount {
-    private int accountNumber;
-    private BigDecimal balance;
+    private final int accountNumber;
+    private BigDecimal bankBalance;
 
-    public static void main(String[] args) {
-        BigDecimal amount = BigDecimal.valueOf(2500);
-
-        SavingUpCarAccount accountCar = new SavingUpCarAccount(62558621, new BigDecimal(2300));
-        accountCar.deposit(amount);
+    public BankAccount(int accountNumber, BigDecimal balance) {
+        this.accountNumber = accountNumber;
+        this.bankBalance = balance;
     }
 
     //текущий баланс
@@ -22,14 +20,23 @@ public class BankAccount {
 
     //пополнение счета
     public void deposit(BigDecimal amount) {
-        balance = balance.add(amount);
+        bankBalance = bankBalance.add(amount);
     }
 
     //снятие со счета
     public void withdraw(BigDecimal amount) {
-        if (currentBalance(balance).compareTo(amount) < 0) {
+        if (currentBalance(bankBalance).compareTo(amount) < 0) {
             throw new NotEnoughFunds("Недостаточно средств");
         }
-        balance = balance.subtract(amount);
+        bankBalance = bankBalance.subtract(amount);
     }
+
+    public int getAccountNumber() {
+        return accountNumber;
+    }
+
+    public BigDecimal getBankBalance() {
+        return bankBalance;
+    }
+
 }
